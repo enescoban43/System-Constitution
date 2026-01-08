@@ -7,10 +7,10 @@ import type { EvoSpecConfig, LLMConfig, ProvidersConfig, VersioningConfig } from
 export const DEFAULT_LLM_CONFIG: LLMConfig = {
   provider: 'openrouter',
   models: {
-    openrouter: 'anthropic/claude-3.5-sonnet',
-    openai: 'gpt-4-turbo',
-    anthropic: 'claude-3-5-sonnet-20241022',
-    ollama: 'llama3',
+    openrouter: 'anthropic/claude-sonnet-4.5',
+    openai: 'gpt-5.2',
+    anthropic: 'claude-sonnet-4-5',
+    ollama: 'llama4',
   },
   temperature: 0.3,
   maxRetries: 3,
@@ -42,7 +42,13 @@ export const DEFAULT_CONFIG: EvoSpecConfig = {
 };
 
 export const ENV_KEYS = {
+  // API Keys
   OPENROUTER_API_KEY: 'OPENROUTER_API_KEY',
   OPENAI_API_KEY: 'OPENAI_API_KEY',
   ANTHROPIC_API_KEY: 'ANTHROPIC_API_KEY',
+  // Model overrides
+  OPENROUTER_MODEL: 'OPENROUTER_MODEL',
+  OPENAI_MODEL: 'OPENAI_MODEL',
+  ANTHROPIC_MODEL: 'ANTHROPIC_MODEL',
+  OLLAMA_MODEL: 'OLLAMA_MODEL',
 } as const;

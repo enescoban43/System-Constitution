@@ -24,10 +24,32 @@ EvoSpec DSL is a domain-specific language designed for **managed LLM-driven soft
 npm install -g @evospec/cli
 ```
 
+### Environment Setup
+
+For LLM-powered features (generate, evolve), set up your API key:
+
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit .env and add your API key (choose one provider)
+OPENROUTER_API_KEY=sk-or-v1-your-key-here  # Recommended
+# or
+OPENAI_API_KEY=sk-your-key-here
+# or
+ANTHROPIC_API_KEY=sk-ant-your-key-here
+```
+
+> **Note:** For local development without API keys, use Ollama (free, runs locally) or `--no-generate` flag.
+
 ### Create Your First Spec
 
 ```bash
-evospec init myapp
+# With LLM generation
+evospec init myshop -d "E-commerce platform with products and orders"
+
+# Without LLM (minimal template)
+evospec init myapp --no-generate
 ```
 
 This creates `myapp.evospec.yaml`:
@@ -89,7 +111,8 @@ EvoSpec-DSL/
 │   └── examples/         # Example specs
 ├── validator/            # TypeScript validator
 ├── cli/                  # CLI tool
-└── website/              # Docusaurus site
+├── website/              # Docusaurus site
+└── .env.example          # Environment variables template
 ```
 
 ## Packages
@@ -134,7 +157,47 @@ EvoSpec-DSL/
 
 ## LLM Integration
 
-Include the [System Prompt](llm/v1/SYSTEM_PROMPT.md) in your LLM context to enable spec generation:
+### CLI Commands
+
+The CLI includes built-in LLM support for generating and evolving specs:
+
+```bash
+# Generate new spec from description
+evospec generate "Task management with projects and tasks" -o tasks.evospec.yaml
+
+# Evolve existing spec
+evospec evolve myapp.evospec.yaml -c "Add user authentication"
+
+# Interactive chat mode
+evospec chat myapp.evospec.yaml
+```
+
+### Supported Providers
+
+| Provider | API Key Variable | Model Variable | Default Model |
+|----------|-----------------|----------------|---------------|
+| **OpenRouter** (default) | `OPENROUTER_API_KEY` | `OPENROUTER_MODEL` | `anthropic/claude-sonnet-4.5` |
+| OpenAI | `OPENAI_API_KEY` | `OPENAI_MODEL` | `gpt-5.2` |
+| Anthropic | `ANTHROPIC_API_KEY` | `ANTHROPIC_MODEL` | `claude-sonnet-4-5` |
+| Ollama (local) | — | `OLLAMA_MODEL` | `llama4` |
+
+**Popular OpenRouter models:**
+- `anthropic/claude-sonnet-4.5` (default, recommended)
+- `anthropic/claude-opus-4.1` (most capable)
+- `openai/gpt-5.2`
+- `openai/gpt-5.2-pro`
+- `google/gemini-2.0-pro`
+- `meta-llama/llama-4-maverick`
+
+See full list at [openrouter.ai/models](https://openrouter.ai/models)
+
+### Validation Loop
+
+All generated specs are automatically validated. If validation fails, the LLM retries with error feedback (up to 3 attempts by default).
+
+### System Prompt
+
+Include the [System Prompt](llm/v1/SYSTEM_PROMPT.md) in your LLM context for custom integrations:
 
 ```markdown
 # EvoSpec DSL v1 — LLM Generation Guide

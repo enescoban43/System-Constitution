@@ -115,6 +115,31 @@ export function getApiKey(provider: LLMProviderName, config: EvoSpecConfig): str
 }
 
 export function getModel(provider: LLMProviderName, config: EvoSpecConfig): string {
+  // Check environment variable first
+  switch (provider) {
+    case 'openrouter':
+      if (process.env[ENV_KEYS.OPENROUTER_MODEL]) {
+        return process.env[ENV_KEYS.OPENROUTER_MODEL];
+      }
+      break;
+    case 'openai':
+      if (process.env[ENV_KEYS.OPENAI_MODEL]) {
+        return process.env[ENV_KEYS.OPENAI_MODEL];
+      }
+      break;
+    case 'anthropic':
+      if (process.env[ENV_KEYS.ANTHROPIC_MODEL]) {
+        return process.env[ENV_KEYS.ANTHROPIC_MODEL];
+      }
+      break;
+    case 'ollama':
+      if (process.env[ENV_KEYS.OLLAMA_MODEL]) {
+        return process.env[ENV_KEYS.OLLAMA_MODEL];
+      }
+      break;
+  }
+  
+  // Fall back to config
   return config.llm.models[provider];
 }
 
