@@ -1,0 +1,4 @@
+packages:
+  - 'validator'
+  - 'cli'
+  - 'website'
