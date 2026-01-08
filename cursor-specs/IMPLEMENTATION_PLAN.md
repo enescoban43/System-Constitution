@@ -308,31 +308,23 @@ https://evospec.dev/
 
 ---
 
-## Implementation Roadmap
+## Implementation Checklist
 
-### Milestone 1: Foundation (Week 1-2)
+### Foundation
 - [ ] Set up repository structure
 - [ ] Create JSON Schema v1 (root + definitions)
 - [ ] Write SYSTEM_PROMPT.md for LLM
-- [ ] Create 4 example files
+- [ ] Create example files (minimal, CRUD, workflow, full)
 
-### Milestone 2: Documentation (Week 3-4)
+### Documentation
 - [ ] Write specification docs (7 chapters)
 - [ ] Write quick-start guide
 - [ ] Set up Docusaurus with versioning
-- [ ] Deploy to Vercel
 
-### Milestone 3: Validator (Week 5-6)
-- [ ] Implement Phase 1-3 validation
-- [ ] Implement Phase 4-6 validation
+### Validator
+- [ ] Implement Phase 1-3 validation (structural, referential, semantic)
+- [ ] Implement Phase 4-6 validation (evolution, generation, verifiability)
 - [ ] Create CLI tool
-- [ ] Publish to npm
-
-### Milestone 4: Polish (Week 7-8)
-- [ ] Add search (Algolia)
-- [ ] Add interactive playground
-- [ ] Write migration guide
-- [ ] Create video tutorials
 
 ---
 
