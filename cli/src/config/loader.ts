@@ -1,6 +1,6 @@
 /**
  * Configuration Loader
- * Loads config from global (~/.evospec/config.yaml) and local (.evospec/config.yaml)
+ * Loads config from global (~/.sysconst/config.yaml) and local (.sysconst/config.yaml)
  */
 
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'fs';
@@ -10,9 +10,9 @@ import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 import type { EvoSpecConfig, ProjectLocalConfig, LLMProviderName, LLMConfig, VersioningConfig } from './schema.js';
 import { DEFAULT_CONFIG, ENV_KEYS } from './defaults.js';
 
-const GLOBAL_CONFIG_DIR = join(homedir(), '.evospec');
+const GLOBAL_CONFIG_DIR = join(homedir(), '.sysconst');
 const GLOBAL_CONFIG_FILE = join(GLOBAL_CONFIG_DIR, 'config.yaml');
-const LOCAL_CONFIG_DIR = '.evospec';
+const LOCAL_CONFIG_DIR = '.sysconst';
 const LOCAL_CONFIG_FILE = 'config.yaml';
 
 /**
@@ -182,10 +182,10 @@ export function findSpecFile(cwd: string = process.cwd()): string | null {
     }
   }
   
-  // Fallback: look for *.evospec.yaml in cwd
+  // Fallback: look for *.sysconst.yaml in cwd
   try {
     const files = readdirSync(cwd);
-    const specFile = files.find((f) => f.endsWith('.evospec.yaml'));
+    const specFile = files.find((f) => f.endsWith('.sysconst.yaml'));
     if (specFile) {
       return join(cwd, specFile);
     }
@@ -197,7 +197,7 @@ export function findSpecFile(cwd: string = process.cwd()): string | null {
 }
 
 /**
- * Save API key to global config (~/.evospec/config.yaml)
+ * Save API key to global config (~/.sysconst/config.yaml)
  */
 export function saveApiKey(provider: LLMProviderName, apiKey: string): void {
   // Ensure global config directory exists

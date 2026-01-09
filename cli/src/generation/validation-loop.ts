@@ -3,7 +3,7 @@
  */
 
 import { parse as parseYaml } from 'yaml';
-import { validateYaml, type ValidationResult, type ValidationError } from '@evospec/validator';
+import { validateYaml, type ValidationResult, type ValidationError } from '@sysconst/validator';
 import type { LLMProvider } from '../llm/provider.js';
 import { getSystemPrompt, buildErrorFeedbackPrompt } from './prompts.js';
 
@@ -34,7 +34,7 @@ export function extractYaml(content: string): string {
   }
   
   // Try to find YAML starting with 'spec:'
-  const specMatch = content.match(/(spec:\s*evospec\/v1[\s\S]*)/);
+  const specMatch = content.match(/(spec:\s*sysconst\/v1[\s\S]*)/);
   if (specMatch) {
     return specMatch[1].trim();
   }

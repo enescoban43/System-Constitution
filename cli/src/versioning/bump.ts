@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 import * as semver from 'semver';
-import { validateYaml } from '@evospec/validator';
+import { validateYaml } from '@sysconst/validator';
 import type { Git } from './git.js';
 
 export type BumpType = 'major' | 'minor' | 'patch';

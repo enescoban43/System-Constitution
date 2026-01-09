@@ -17,7 +17,7 @@ import type { LLMProviderName } from '../config/schema.js';
 export function createEvolveCommand(): Command {
   const cmd = new Command('evolve')
     .description('Evolve an existing specification based on change request')
-    .argument('[spec-file]', 'Path to existing EvoSpec file')
+    .argument('[spec-file]', 'Path to existing System Constitution file')
     .requiredOption('-c, --change <desc>', 'Change description')
     .option('-o, --output <file>', 'Output file (default: overwrite input)')
     .option('--bump <type>', 'Version bump: major|minor|patch', 'minor')

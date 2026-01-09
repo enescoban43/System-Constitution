@@ -1,7 +1,7 @@
-# EvoSpec DSL v1 — Entity CRUD Example
-# Demonstrates entities, commands, events, and basic CRUD operations
+# System Constitution v1 — Entity CRUD Example
+# Demonstrates entities, commands, events, and basic CRUD operations with contracts
 
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: crud.example
@@ -28,6 +28,7 @@ domain:
         goals:
           - "Manage tasks with full CRUD"
           - "Track task status changes"
+          - "Enforce structural integrity via contracts"
       children:
         - NodeRef(mod.tasks)
 
@@ -89,7 +90,12 @@ domain:
             type: datetime
             required: false
       contracts:
+        # Invariant: title cannot be empty
         - invariant: "title != ''"
+          level: hard
+        # API compatibility: minor versions cannot remove fields
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
           level: hard
 
     # Commands
@@ -216,4 +222,4 @@ history:
     basedOn: null
     changes: []
     migrations: []
-    notes: "Initial CRUD spec"
+    notes: "Initial CRUD constitution"

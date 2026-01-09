@@ -14,8 +14,8 @@ import { resolve, basename, join } from 'path';
 // Try loading .env from multiple locations (in order of priority)
 const envPaths = [
   resolve(process.cwd(), '.env'),                    // Current directory
-  resolve(process.cwd(), '.evospec', '.env'),        // Project .evospec folder
-  join(homedir(), '.evospec', '.env'),               // Global ~/.evospec/.env
+  resolve(process.cwd(), '.sysconst', '.env'),        // Project .sysconst folder
+  join(homedir(), '.sysconst', '.env'),               // Global ~/.sysconst/.env
 ];
 
 for (const envPath of envPaths) {
@@ -27,7 +27,7 @@ for (const envPath of envPaths) {
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { validateYaml, ValidationResult, ValidationError, ValidationPhase } from '@evospec/validator';
+import { validateYaml, ValidationResult, ValidationError, ValidationPhase } from '@sysconst/validator';
 
 // Import new commands
 import {
@@ -43,8 +43,8 @@ import {
 const program = new Command();
 
 program
-  .name('evospec')
-  .description('CLI for EvoSpec DSL validation, generation, and versioning')
+  .name('sysconst')
+  .description('CLI for System Constitution validation, generation, and versioning')
   .version('1.0.0');
 
 // ============================================
@@ -53,7 +53,7 @@ program
 
 program
   .command('validate <file>')
-  .description('Validate an EvoSpec specification file')
+  .description('Validate a System Constitution file')
   .option('-p, --phase <phases>', 'Validate specific phases (e.g., 1-3 or 1,2,3)', '1-6')
   .option('-s, --strict', 'Treat soft errors as hard errors', false)
   .option('-f, --format <format>', 'Output format: text, json', 'text')

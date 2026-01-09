@@ -1,6 +1,6 @@
 /**
  * Init Command
- * Create a new EvoSpec project
+ * Create a new System Constitution project
  */
 
 import { Command } from 'commander';
@@ -14,7 +14,7 @@ import { ensureApiKey } from '../config/setup.js';
 
 export function createInitCommand(): Command {
   const cmd = new Command('init')
-    .description('Create a new EvoSpec project')
+    .description('Create a new System Constitution project')
     .argument('[project-name]', 'Project name (default: current directory name)')
     .option('-d, --description <desc>', 'System description for LLM generation')
     .option('-p, --provider <provider>', 'LLM provider: openrouter|openai|anthropic|ollama')
@@ -36,7 +36,7 @@ export function createInitCommand(): Command {
         // Interactive confirmation
         if (!options.yes) {
           console.log();
-          console.log(chalk.bold('EvoSpec Project Initialization'));
+          console.log(chalk.bold('System Constitution Project Initialization'));
           console.log(chalk.gray('=============================='));
           console.log();
           console.log(`Project name:     ${chalk.cyan(projectName || '(current directory)')}`);
@@ -99,7 +99,7 @@ export function createInitCommand(): Command {
             const stepNames: Record<string, string> = {
               directory: 'Created directory',
               git: 'Initialized Git repository',
-              config: 'Created .evospec/config.yaml',
+              config: 'Created .sysconst/config.yaml',
               gitignore: 'Created .gitignore',
               generate: 'Generating specification',
               spec: 'Created spec file',
@@ -156,8 +156,8 @@ export function createInitCommand(): Command {
           if (projectName) {
             console.log(`  ${chalk.cyan(`cd ${projectName}`)}`);
           }
-          console.log(`  ${chalk.cyan(`evospec validate ${result.specFile.split('/').pop()}`)}`);
-          console.log(`  ${chalk.cyan(`evospec evolve ${result.specFile.split('/').pop()} -c "Add feature"`)}`);
+          console.log(`  ${chalk.cyan(`sysconst validate ${result.specFile.split('/').pop()}`)}`);
+          console.log(`  ${chalk.cyan(`sysconst evolve ${result.specFile.split('/').pop()} -c "Add feature"`)}`);
         } else {
           console.log(chalk.red.bold('Project initialization failed:'));
           for (const error of result.errors) {

@@ -5,20 +5,20 @@ title: Quick Start
 
 # Quick Start Guide
 
-Get started with EvoSpec DSL in 5 minutes.
+Get started with System Constitution in 5 minutes.
 
 ## Installation
 
 ```bash
-npm install -g @evospec/cli
+npm install -g @sysconst/cli
 ```
 
-## Your First Spec
+## Your First Constitution
 
-Create `myapp.evospec.yaml`:
+Create `myapp.sysconst.yaml`:
 
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: myapp
@@ -60,6 +60,8 @@ domain:
       contracts:
         - invariant: "email != ''"
           level: hard
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
 
 history:
   - version: "1.0.0"
@@ -68,14 +70,31 @@ history:
     migrations: []
 ```
 
+## Version Control with Git
+
+Constitution files should be version-controlled:
+
+```bash
+git add myapp.sysconst.yaml
+git commit -m "Initial system constitution"
+```
+
 ## Validate
 
 ```bash
-evospec validate myapp.evospec.yaml
+sysconst validate myapp.sysconst.yaml
 ```
+
+## Why Formal Constraints?
+
+| Without Constitution | With Constitution |
+|---------------------|-------------------|
+| Stability via discipline | Stability via constraints |
+| Human-in-the-loop required | Autonomous generation |
+| Process protects system | Contracts protect system |
 
 ## Next Steps
 
 1. Read the [Specification](../spec/introduction)
-2. Explore [Examples](https://github.com/evospec/evospec-dsl/tree/main/llm/v1/examples)
+2. Explore [Examples](https://github.com/nicholasoxford/system-constitution/tree/main/llm/v1/examples)
 3. Set up code generation

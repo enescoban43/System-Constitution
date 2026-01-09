@@ -186,7 +186,7 @@ export interface Docs {
 }
 
 export interface EvoSpec {
-  spec: 'evospec/v1';
+  spec: 'sysconst/v1';
   project: Project;
   structure: Structure;
   domain: Domain;

@@ -1,28 +1,29 @@
 # Quick Start Guide
 
-Get started with EvoSpec DSL in 5 minutes.
+Get started with System Constitution in 5 minutes.
 
 ## Prerequisites
 
 - Node.js 18+
 - npm, pnpm, or yarn
+- Git (for version control of constitution files)
 
 ## Installation
 
 ```bash
 # Install the CLI globally
-npm install -g @evospec/cli
+npm install -g @sysconst/cli
 
 # Or use npx
-npx @evospec/cli validate myspec.yaml
+npx @sysconst/cli validate myconstitution.yaml
 ```
 
-## Your First Spec
+## Your First Constitution
 
-Create a file `myapp.evospec.yaml`:
+Create a file `myapp.sysconst.yaml`:
 
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: myapp
@@ -81,6 +82,8 @@ domain:
       contracts:
         - invariant: "email != ''"
           level: hard
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
 
     # Create user command
     - kind: Command
@@ -112,10 +115,23 @@ history:
     notes: "Initial version"
 ```
 
-## Validate Your Spec
+## Version Control with Git
+
+Constitution files should be version-controlled:
 
 ```bash
-evospec validate myapp.evospec.yaml
+# Initialize git if not already done
+git init
+
+# Add your constitution
+git add myapp.sysconst.yaml
+git commit -m "Initial system constitution"
+```
+
+## Validate Your Constitution
+
+```bash
+sysconst validate myapp.sysconst.yaml
 ```
 
 Expected output:
@@ -185,7 +201,7 @@ generation:
       cmd: "npm run migrate"
 ```
 
-## Evolve Your Spec
+## Evolve Your Constitution
 
 When you need to add a field:
 
@@ -224,6 +240,13 @@ project:
     current: "1.1.0"           # UPDATE
 ```
 
+Then commit the change:
+
+```bash
+git add myapp.sysconst.yaml
+git commit -m "Add phone field to user entity"
+```
+
 ## Common Patterns
 
 ### Entity with Relations
@@ -240,6 +263,9 @@ project:
       customer:
         to: entity.customer
         type: many-to-one
+  contracts:
+    - type: api-compatibility
+      rule: "minor cannot remove fields"
 ```
 
 ### Process with Steps
@@ -277,6 +303,18 @@ project:
         - qry.user.get
 ```
 
+## Why Formal Constraints?
+
+System Constitution differs from specification-driven approaches:
+
+| Without Constitution | With Constitution |
+|---------------------|-------------------|
+| Stability via discipline | Stability via constraints |
+| Human-in-the-loop required | Autonomous generation |
+| Process protects system | Contracts protect system |
+
+The contracts you define are **machine-enforced**. LLMs cannot generate changes that violate them.
+
 ## Next Steps
 
 1. Read the [full specification](../spec/01-introduction.md)
@@ -286,6 +324,6 @@ project:
 
 ## Getting Help
 
-- [GitHub Issues](https://github.com/evospec/evospec-dsl/issues)
-- [Documentation](https://evospec.dev/docs)
-- [Examples](https://github.com/evospec/evospec-dsl/tree/main/llm/v1/examples)
+- [GitHub Issues](https://github.com/nicholasoxford/system-constitution/issues)
+- [Documentation](https://redush.com/docs)
+- [Examples](https://github.com/nicholasoxford/system-constitution/tree/main/llm/v1/examples)

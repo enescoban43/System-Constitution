@@ -1,7 +1,7 @@
-# EvoSpec DSL v1 — Minimal Example
-# This is the bare minimum valid EvoSpec file
+# System Constitution v1 — Minimal Example
+# This is the bare minimum valid constitution file
 
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: minimal.app
@@ -19,14 +19,14 @@ domain:
       id: system.root
       meta:
         title: "Minimal System"
-        description: "A minimal EvoSpec example"
+        description: "A minimal System Constitution example"
       spec:
         goals:
-          - "Demonstrate minimal valid EvoSpec structure"
+          - "Demonstrate minimal valid constitution structure"
 
 history:
   - version: "1.0.0"
     basedOn: null
     changes: []
     migrations: []
-    notes: "Initial minimal spec"
+    notes: "Initial minimal constitution"

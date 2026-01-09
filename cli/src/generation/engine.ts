@@ -113,7 +113,7 @@ export function generateMinimalSpec(projectName: string): string {
   const projectId = projectName.toLowerCase().replace(/[^a-z0-9]/g, '.');
   
   return stringifyYaml({
-    spec: 'evospec/v1',
+    spec: 'sysconst/v1',
     project: {
       id: projectId,
       name: projectName,

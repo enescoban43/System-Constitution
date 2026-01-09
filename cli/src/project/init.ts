@@ -40,7 +40,7 @@ export interface InitResult {
 }
 
 /**
- * Initialize a new EvoSpec project
+ * Initialize a new System Constitution project
  */
 export async function initProject(options: InitOptions): Promise<InitResult> {
   const errors: string[] = [];
@@ -59,7 +59,7 @@ export async function initProject(options: InitOptions): Promise<InitResult> {
   const existing = projectExists(targetDir);
   if (existing.exists) {
     const reason = existing.reason === 'evospec_dir'
-      ? 'Project already initialized (.evospec/ exists)'
+      ? 'Project already initialized (.sysconst/ exists)'
       : 'Spec file already exists';
     return {
       success: false,
@@ -112,7 +112,7 @@ export async function initProject(options: InitOptions): Promise<InitResult> {
     options.onStep?.('git', 'skip', 'Git not available');
   }
   
-  // Step 3: Create .evospec/config.yaml
+  // Step 3: Create .sysconst/config.yaml
   options.onStep?.('config', 'start');
   
   // Step 4: Create .gitignore
@@ -187,7 +187,7 @@ export async function initProject(options: InitOptions): Promise<InitResult> {
       options.onStep?.('commit', 'start');
       
       await git.add('.');
-      await git.commit('Initial EvoSpec v1.0.0');
+      await git.commit('Initial System Constitution v1.0.0');
       
       options.onStep?.('commit', 'done');
       

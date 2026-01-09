@@ -1,12 +1,14 @@
-# EvoSpec DSL v1 — Compact Guide
+# System Constitution v1 — Compact Guide
+
+Architectural governance layer for autonomous software evolution. Uses Git for version control.
 
 ## Format
-- YAML with `spec: evospec/v1`
+- YAML with `spec: sysconst/v1`
 - IDs: `^[a-z][a-z0-9_.-]*$`
 
 ## Structure
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 project: { id: my.app, versioning: { strategy: semver, current: "1.0.0" } }
 structure: { root: NodeRef(system.root) }
 domain: { nodes: [...] }
@@ -18,6 +20,7 @@ domain: { nodes: [...] }
   id: stable.id
   spec: { ... }  # kind-specific, REQUIRED
   children: [NodeRef(...)]  # optional
+  contracts: [...]  # ENFORCES ARCHITECTURAL INTEGRITY
 ```
 
 ## Kind → spec
@@ -36,9 +39,18 @@ domain: { nodes: [...] }
 ## Types
 `uuid`, `string`, `int`, `bool`, `datetime`, `ref(entity.x)`, `enum(Name)`
 
+## Contracts (Core of Governance)
+```yaml
+contracts:
+  - invariant: "expression"  # MUST always hold
+  - temporal: "G(condition)"  # State transitions
+  - type: api-compatibility
+    rule: "minor cannot remove fields"
+```
+
 ## Example
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 project:
   id: demo
   versioning: { strategy: semver, current: "1.0.0" }
@@ -55,9 +67,12 @@ domain:
         fields:
           id: { type: uuid, required: true }
           name: { type: string, required: true }
+      contracts:
+        - invariant: "name != ''"
 ```
 
 ## Rules
 - All IDs unique
 - All NodeRef must resolve
 - Entity needs `fields`, Command needs `input`, Event needs `payload`
+- **Contracts cannot be violated** by any generated change

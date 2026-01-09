@@ -40,32 +40,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Specification-Driven',
-    icon: '📋',
+    title: 'Architectural Governance',
+    icon: '🏛️',
     description: (
       <>
-        Define your entire system in a single, version-controlled specification.
-        Domain models, processes, contracts, and tests — all in one place.
+        Define structural boundaries and invariants that cannot be violated.
+        The constitution enforces architectural integrity programmatically.
       </>
     ),
   },
   {
-    title: 'LLM-Safe Generation',
+    title: 'Autonomous-Ready',
     icon: '🤖',
     description: (
       <>
-        Clear boundaries for AI code generation. Zones, hooks, and contracts
-        ensure LLMs can only modify what they're allowed to.
+        Designed for LLM generation without human-in-the-loop. Formal constraints
+        replace process discipline—LLMs simply cannot violate contracts.
       </>
     ),
   },
   {
-    title: 'Managed Evolution',
+    title: 'Controlled Evolution',
     icon: '🔄',
     description: (
       <>
-        Track every change with full history. Migrations ensure safe transitions
-        between versions with no data loss.
+        Track every architectural change with full history. Git-native versioning
+        provides branching, diffing, and migration paths.
       </>
     ),
   },
@@ -75,27 +75,27 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         Works with any technology stack. Generate TypeScript, Python, Go, or any
-        language from the same specification.
+        language while maintaining structural integrity.
       </>
     ),
   },
   {
-    title: 'Verifiable Contracts',
-    icon: '✅',
+    title: 'Contract Enforcement',
+    icon: '🔒',
     description: (
       <>
         Define invariants, temporal constraints, and policies. The validator
-        ensures your system stays consistent.
+        ensures your system's structural integrity is preserved.
       </>
     ),
   },
   {
-    title: 'Test Generation',
-    icon: '🧪',
+    title: 'Prevents Degradation',
+    icon: '🛡️',
     description: (
       <>
-        Scenarios become executable tests. Document behavior and verify
-        correctness from the same source.
+        Protect against architectural erosion over time. Unauthorized coupling,
+        contract violations, and schema drift are blocked automatically.
       </>
     ),
   },
@@ -127,18 +127,40 @@ function HomepageFeatures(): JSX.Element {
   );
 }
 
-function HomepageCode(): JSX.Element {
+function HomepageComparison(): JSX.Element {
   return (
     <section className={styles.codeSection}>
       <div className="container">
         <div className="row">
           <div className="col col--6">
-            <Heading as="h2">Simple, Declarative Syntax</Heading>
+            <Heading as="h2">Why Formal Constraints?</Heading>
             <p>
-              EvoSpec uses YAML to describe your system. Define entities,
-              commands, events, and processes in a human-readable format that
-              LLMs can easily understand and generate.
+              Traditional specification-driven approaches rely on process discipline
+              and human oversight. System Constitution embeds constraints directly
+              into the architecture definition.
             </p>
+            <table style={{width: '100%', marginBottom: '1rem'}}>
+              <thead>
+                <tr>
+                  <th>Without Constitution</th>
+                  <th>With Constitution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Stability via discipline</td>
+                  <td>Stability via constraints</td>
+                </tr>
+                <tr>
+                  <td>Human-in-the-loop required</td>
+                  <td>Autonomous generation</td>
+                </tr>
+                <tr>
+                  <td>Process protects system</td>
+                  <td>Contracts protect system</td>
+                </tr>
+              </tbody>
+            </table>
             <Link
               className="button button--primary button--lg"
               to="/docs/v1/spec/domain-layer">
@@ -147,7 +169,7 @@ function HomepageCode(): JSX.Element {
           </div>
           <div className="col col--6">
             <pre className={styles.codeBlock}>
-{`spec: evospec/v1
+{`spec: sysconst/v1
 
 project:
   id: myapp
@@ -164,7 +186,9 @@ domain:
           id: { type: uuid, required: true }
           email: { type: string, required: true }
       contracts:
-        - invariant: "email != ''"`}
+        - invariant: "email != ''"
+        - type: api-compatibility
+          rule: "minor cannot remove fields"`}
             </pre>
           </div>
         </div>
@@ -179,10 +203,10 @@ function HomepageCTA(): JSX.Element {
       <div className="container">
         <Heading as="h2">Ready to Get Started?</Heading>
         <p>
-          Install the CLI and create your first specification in minutes.
+          Install the CLI and create your first constitution in minutes.
         </p>
         <pre className={styles.installCommand}>
-          npm install -g @evospec/cli
+          npm install -g @sysconst/cli
         </pre>
         <div className={styles.buttons}>
           <Link
@@ -192,7 +216,7 @@ function HomepageCTA(): JSX.Element {
           </Link>
           <Link
             className="button button--outline button--primary button--lg"
-            href="https://github.com/evospec/evospec-dsl">
+            href="https://github.com/nicholasoxford/system-constitution">
             View on GitHub
           </Link>
         </div>
@@ -205,12 +229,12 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`${siteConfig.title} - Specification-driven software evolution`}
-      description="EvoSpec DSL is a domain-specific language for managed LLM-driven software evolution. Define your system, control code generation, and evolve safely.">
+      title={`${siteConfig.title} - Architectural governance for autonomous evolution`}
+      description="System Constitution is an architectural governance layer that enforces structural integrity and controls permissible evolution of software systems. Designed for autonomous LLM generation without human-in-the-loop.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
-        <HomepageCode />
+        <HomepageComparison />
         <HomepageCTA />
       </main>
     </Layout>

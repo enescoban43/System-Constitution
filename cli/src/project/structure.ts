@@ -42,13 +42,13 @@ export interface CreateStructureResult {
  * Get project structure paths
  */
 export function getProjectStructure(targetDir: string, projectName: string): ProjectStructure {
-  const specFileName = `${projectName}.evospec.yaml`;
+  const specFileName = `${projectName}.sysconst.yaml`;
   
   return {
     projectDir: targetDir,
-    evospecDir: join(targetDir, '.evospec'),
-    cacheDir: join(targetDir, '.evospec', 'cache'),
-    configFile: join(targetDir, '.evospec', 'config.yaml'),
+    evospecDir: join(targetDir, '.sysconst'),
+    cacheDir: join(targetDir, '.sysconst', 'cache'),
+    configFile: join(targetDir, '.sysconst', 'config.yaml'),
     specFile: join(targetDir, specFileName),
     gitignoreFile: join(targetDir, '.gitignore'),
     readmeFile: join(targetDir, 'README.md'),
@@ -74,16 +74,16 @@ export function projectExists(targetDir: string): {
   exists: boolean;
   reason?: 'evospec_dir' | 'spec_file';
 } {
-  const evospecDir = join(targetDir, '.evospec');
+  const evospecDir = join(targetDir, '.sysconst');
   if (existsSync(evospecDir)) {
     return { exists: true, reason: 'evospec_dir' };
   }
   
-  // Check for any .evospec.yaml file
+  // Check for any .sysconst.yaml file
   if (existsSync(targetDir)) {
     try {
       const files = readdirSync(targetDir);
-      const specFile = files.find(f => f.endsWith('.evospec.yaml'));
+      const specFile = files.find(f => f.endsWith('.sysconst.yaml'));
       if (specFile) {
         return { exists: true, reason: 'spec_file' };
       }
@@ -103,7 +103,7 @@ export function createProjectStructure(options: CreateStructureOptions): CreateS
   const warnings: string[] = [];
   
   const structure = getProjectStructure(options.targetDir, options.projectName);
-  const specFileName = `${options.projectName}.evospec.yaml`;
+  const specFileName = `${options.projectName}.sysconst.yaml`;
   
   try {
     // Create project directory if it doesn't exist
@@ -111,9 +111,9 @@ export function createProjectStructure(options: CreateStructureOptions): CreateS
       mkdirSync(structure.projectDir, { recursive: true });
     }
     
-    // Create .evospec directory
-    if (!existsSync(structure.evospecDir)) {
-      mkdirSync(structure.evospecDir, { recursive: true });
+    // Create .sysconst directory
+    if (!existsSync(structure.sysconstDir)) {
+      mkdirSync(structure.sysconstDir, { recursive: true });
     }
     
     // Create cache directory

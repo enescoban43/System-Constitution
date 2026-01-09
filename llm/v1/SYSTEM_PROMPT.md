@@ -1,17 +1,28 @@
-# EvoSpec DSL v1 — LLM Generation Guide
+# System Constitution v1 — LLM Generation Guide
 
-You are generating EvoSpec DSL specifications. Follow these rules exactly.
+You are generating System Constitution files. These define architectural governance for autonomous software evolution. Follow these rules exactly.
+
+## What is System Constitution?
+
+System Constitution is an **architectural governance layer** that:
+- Enforces structural integrity through formal constraints
+- Controls permissible evolution of software systems over time
+- Enables autonomous LLM generation without human-in-the-loop
+- Uses Git for version control of constitution files
+
+**Key principle**: Stability through formal constraints, not process discipline. LLMs cannot introduce changes that violate architectural contracts.
 
 ## Format
 
 - **File format**: YAML (preferred) or JSON
-- **Root key**: `spec: evospec/v1` (REQUIRED)
+- **Root key**: `spec: sysconst/v1` (REQUIRED)
 - **ID pattern**: `^[a-z][a-z0-9_.-]*$` (lowercase, starts with letter)
+- **Version control**: Constitution files should be committed to Git
 
 ## Core Structure
 
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: <stable-id>                    # REQUIRED
@@ -49,13 +60,13 @@ Every node MUST have:
 
 ```yaml
 - kind: <NodeKind>      # REQUIRED
-  id: <stable-id>       # REQUIRED, unique across spec
+  id: <stable-id>       # REQUIRED, unique across constitution
   spec: { ... }         # REQUIRED, kind-specific
   meta:                 # optional
     title: "..."
     description: "..."
   children: [...]       # optional
-  contracts: [...]      # optional
+  contracts: [...]      # optional - THESE ENFORCE ARCHITECTURAL INTEGRITY
 ```
 
 ## Node Kinds Reference
@@ -103,6 +114,8 @@ Every node MUST have:
       customer: { to: entity.customer, type: many-to-one }
   contracts:
     - invariant: "totalCents >= 0"
+    - type: api-compatibility
+      rule: "minor cannot remove fields"
 ```
 
 ## Command Example
@@ -163,15 +176,17 @@ Every node MUST have:
       - expectEntity: { id: entity.order, where: { id: "$ref(order).id" }, match: { status: "submitted" } }
 ```
 
-## Contracts
+## Contracts — The Core of Architectural Governance
+
+Contracts enforce structural integrity. LLMs CANNOT generate changes that violate these:
 
 ```yaml
 contracts:
-  - invariant: "expression"           # Data invariant
-    level: hard                       # hard = blocks, soft = warning
-  - temporal: "G(condition)"          # LTL temporal logic
+  - invariant: "expression"           # Data invariant - MUST always hold
+    level: hard                       # hard = blocks generation, soft = warning
+  - temporal: "G(condition)"          # LTL temporal logic - state transitions
   - type: api-compatibility
-    rule: "minor cannot remove fields"
+    rule: "minor cannot remove fields"  # Evolution constraint
 ```
 
 ## Generation Zones
@@ -181,9 +196,11 @@ contracts:
 | `overwrite` | Fully regenerated, no user code |
 | `anchored` | Has hook anchors for user code |
 | `preserve` | Never touched by generator |
-| `spec-controlled` | Changes only via spec changes |
+| `spec-controlled` | Changes only via constitution changes |
 
 ## History & Migrations
+
+Constitution files are version-controlled with Git. The history section tracks architectural evolution:
 
 ```yaml
 history:
@@ -212,7 +229,7 @@ history:
 
 ## Critical Validation Rules
 
-1. **All IDs must be unique** across the entire spec
+1. **All IDs must be unique** across the entire constitution
 2. **All NodeRef must resolve** to existing node IDs
 3. **Entity must have `fields`** in spec
 4. **Command must have `input`** in spec
@@ -222,11 +239,12 @@ history:
 8. **No circular children** (parent→child→parent)
 9. **History chain must be valid** (each version's basedOn exists)
 10. **Destructive changes require migrations**
+11. **Contracts cannot be violated** by any generated change
 
-## Minimal Valid Spec
+## Minimal Valid Constitution
 
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: my.app
@@ -244,9 +262,9 @@ domain:
       meta: { title: "My Application" }
       spec:
         goals:
-          - "Demonstrate minimal EvoSpec"
+          - "Demonstrate minimal System Constitution"
 ```
 
 ---
 
-**Remember**: Generate valid YAML, use correct ID patterns, ensure all references resolve.
+**Remember**: Generate valid YAML, use correct ID patterns, ensure all references resolve, and respect all contracts. The constitution enforces architectural integrity—you cannot bypass constraints.

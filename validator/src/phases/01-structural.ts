@@ -49,16 +49,16 @@ export function validateStructural(spec: unknown): ValidationError[] {
       level: 'hard',
       message: "Missing 'spec' field",
       location: '',
-      suggestion: "Add 'spec: evospec/v1' at the root",
+      suggestion: "Add 'spec: sysconst/v1' at the root",
     });
-  } else if (s.spec !== 'evospec/v1') {
+  } else if (s.spec !== 'sysconst/v1') {
     errors.push({
       code: 'INVALID_SPEC_VERSION',
       phase: 1,
       level: 'hard',
       message: `Invalid spec version: ${s.spec}`,
       location: 'spec',
-      suggestion: "Use 'spec: evospec/v1'",
+      suggestion: "Use 'spec: sysconst/v1'",
     });
   }
 

@@ -3,15 +3,15 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'EvoSpec DSL',
-  tagline: 'Specification-driven software evolution for LLM-guided development',
+  title: 'System Constitution',
+  tagline: 'Architectural governance layer for autonomous software evolution',
   favicon: 'img/favicon.ico',
 
-  url: 'https://evospec.dev',
+  url: 'https://redush.com',
   baseUrl: '/',
 
-  organizationName: 'evospec',
-  projectName: 'evospec-dsl',
+  organizationName: 'nicholasoxford',
+  projectName: 'system-constitution',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -27,7 +27,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/evospec/evospec-dsl/tree/main/website/',
+          editUrl: 'https://github.com/nicholasoxford/system-constitution/tree/main/website/',
           lastVersion: 'current',
           versions: {
             current: {
@@ -45,11 +45,11 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/evospec-social-card.png',
+    image: 'img/sysconst-social-card.png',
     navbar: {
-      title: 'EvoSpec DSL',
+      title: 'System Constitution',
       logo: {
-        alt: 'EvoSpec Logo',
+        alt: 'System Constitution Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -76,7 +76,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/evospec/evospec-dsl',
+          href: 'https://github.com/nicholasoxford/system-constitution',
           label: 'GitHub',
           position: 'right',
         },
@@ -107,7 +107,7 @@ const config: Config = {
           items: [
             {
               label: 'JSON Schema',
-              href: '/schema/v1/evospec.schema.json',
+              href: '/schema/v1/sysconst.schema.json',
             },
             {
               label: 'LLM Prompts',
@@ -115,7 +115,7 @@ const config: Config = {
             },
             {
               label: 'Examples',
-              href: 'https://github.com/evospec/evospec-dsl/tree/main/llm/v1/examples',
+              href: 'https://github.com/nicholasoxford/system-constitution/tree/main/llm/v1/examples',
             },
           ],
         },
@@ -124,20 +124,20 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/evospec/evospec-dsl',
+              href: 'https://github.com/nicholasoxford/system-constitution',
             },
             {
               label: 'Issues',
-              href: 'https://github.com/evospec/evospec-dsl/issues',
+              href: 'https://github.com/nicholasoxford/system-constitution/issues',
             },
             {
               label: 'Discussions',
-              href: 'https://github.com/evospec/evospec-dsl/discussions',
+              href: 'https://github.com/nicholasoxford/system-constitution/discussions',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} EvoSpec. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} System Constitution. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

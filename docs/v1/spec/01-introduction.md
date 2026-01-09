@@ -2,36 +2,61 @@
 
 ## 1.1 Purpose
 
-**EvoSpec DSL** (Evolution Software Specification DSL) is a domain-specific language designed for **managed LLM-driven software evolution**. It provides a formal, machine-readable specification format that describes:
+**System Constitution** is an **architectural governance layer** designed for **autonomous software evolution**. It provides a formal, machine-readable definition that:
 
-- **What** the system is (data, processes, interfaces, policies)
-- **How** it is allowed to evolve (history, migrations, version constraints)
-- **How** code generation is controlled (zones, anchors, pipelines)
-- **How** correctness is verified (contracts, test scenarios)
-- **How** it is documented (doc packs, auto-generated docs)
+- **Enforces structural integrity** — Defines boundaries and invariants that cannot be violated
+- **Controls permissible evolution** — Specifies what changes are allowed over time
+- **Prevents architectural degradation** — Blocks unauthorized coupling, contract violations, and schema drift
+- **Enables autonomous generation** — LLMs can operate without human-in-the-loop oversight
 
-## 1.2 Goals
+Unlike specification-driven approaches that rely on process discipline and human review, System Constitution embeds **formal constraints** directly into the system definition. The result: stability through constraints, not rituals.
 
-EvoSpec DSL enables:
+## 1.2 The Problem
 
-1. **Specification-Guided Evolution** — All changes flow through the spec, ensuring consistency
-2. **LLM-Safe Generation** — Clear boundaries prevent AI from making unauthorized changes
+Autonomous LLM-guided development faces a fundamental challenge: **architectural erosion**. Without constant human oversight, AI agents can gradually degrade system structure through:
+
+- Unauthorized coupling between modules
+- Contract violations and invariant breaches
+- Uncontrolled schema evolution
+- Loss of separation of concerns
+
+**Process-based solutions** address this through discipline and iteration—requiring human review at each step. This works, but limits autonomy.
+
+## 1.3 Our Approach: Formal Constraints
+
+System Constitution takes a different path:
+
+| Without System Constitution | With System Constitution |
+|----------------------------|--------------------------|
+| Stability through discipline and iteration | Stability through formal constraints |
+| Human-in-the-loop required | Autonomous generation possible |
+| Process protects the system | Contracts protect the system |
+| LLM can propose any change | LLM cannot violate contracts |
+
+The system uses **Git** for version control of constitution files, providing full history, branching, and diff capabilities for architectural evolution.
+
+## 1.4 Goals
+
+System Constitution enables:
+
+1. **Architectural Governance** — Define structural boundaries that are machine-enforced
+2. **Autonomous-Safe Generation** — LLMs operate within formal constraints, no human oversight required
 3. **Stack-Agnostic Design** — Works with any technology stack
-4. **Verifiable Changes** — Every modification can be validated before application
-5. **Complete Audit Trail** — Full history of changes with migration paths
+4. **Verifiable Evolution** — Every modification is validated before application
+5. **Complete Audit Trail** — Full history of architectural changes with migration paths
 
-## 1.3 Non-Goals
+## 1.5 Non-Goals
 
-EvoSpec DSL is **NOT**:
+System Constitution is **NOT**:
 
 - A programming language for implementing algorithms
 - A compiler that generates code in any language
 - A replacement for frameworks or libraries
 - A runtime execution environment
 
-Algorithms (CV, ML, optimization) are implemented in user code through **hooks**, but under the control of contracts defined in the spec.
+Algorithms (CV, ML, optimization) are implemented in user code through **hooks**, but under the control of contracts defined in the constitution.
 
-## 1.4 Document Conventions
+## 1.6 Document Conventions
 
 This specification uses requirement levels as defined in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt):
 
@@ -43,30 +68,31 @@ This specification uses requirement levels as defined in [RFC 2119](https://www.
 | **SHOULD NOT** | Not recommended but not prohibited |
 | **MAY** | Optional |
 
-## 1.5 Specification Version
+## 1.7 Specification Version
 
-This document describes **EvoSpec DSL v1**.
+This document describes **System Constitution v1**.
 
 All conforming documents MUST declare:
 
 ```yaml
-spec: evospec/v1
+spec: sysconst/v1
 ```
 
-## 1.6 File Format
+## 1.8 File Format
 
-EvoSpec files:
+Constitution files:
 
 - **MUST** be serializable to JSON
 - **MAY** use YAML as a human-friendly format
 - **MUST** have deterministic canonical form (sorted keys, stable ordering) for diff operations
-- **SHOULD** use `.evospec.yaml` or `.evospec.json` file extension
+- **SHOULD** use `.sysconst.yaml` or `.sysconst.json` file extension
+- **SHOULD** be version-controlled with Git
 
-## 1.7 Core Concepts
+## 1.9 Core Concepts
 
 ### Nodes
 
-Everything in EvoSpec is a **Node**. Nodes are the universal building blocks:
+Everything in System Constitution is a **Node**. Nodes are the universal building blocks:
 
 ```yaml
 - kind: <NodeKind>      # Type of node (Entity, Command, etc.)
@@ -86,7 +112,7 @@ Everything in EvoSpec is a **Node**. Nodes are the universal building blocks:
 Every node has a **stable ID** that:
 
 - **MUST** match pattern `^[a-z][a-z0-9_.-]*$`
-- **MUST** be unique across the entire specification
+- **MUST** be unique across the entire constitution
 - **MUST NOT** change between versions (use rename operations instead)
 
 Examples:
@@ -105,12 +131,12 @@ children:
   - NodeRef(entity.order)
 ```
 
-## 1.8 Specification Structure
+## 1.10 Constitution Structure
 
-A complete EvoSpec document has this structure:
+A complete System Constitution document has this structure:
 
 ```yaml
-spec: evospec/v1           # Version declaration (REQUIRED)
+spec: sysconst/v1          # Version declaration (REQUIRED)
 
 project:                   # Project metadata (REQUIRED)
   id: my.project
@@ -141,9 +167,9 @@ docs:                      # Documentation config (optional)
   packs: [...]
 ```
 
-## 1.9 Layers
+## 1.11 Layers
 
-EvoSpec has three conceptual layers:
+System Constitution has three conceptual layers:
 
 ### Domain Layer
 Describes **what** the system is:
@@ -166,9 +192,9 @@ Describes **how** code is generated:
 - Build/test pipelines
 - Verification requirements
 
-## 1.10 Validation
+## 1.12 Validation
 
-Every EvoSpec document **MUST** pass validation before use. Validation occurs in phases:
+Every System Constitution document **MUST** pass validation before use. Validation occurs in phases:
 
 1. **Structural** — Correct syntax and required fields
 2. **Referential** — All references resolve, no illegal cycles

@@ -151,7 +151,7 @@ export async function checkVersionConsistency(
         name: 'Git tag',
         passed: false,
         message: `Tag ${tagName} not found`,
-        suggestion: 'Run: evospec version tag',
+        suggestion: 'Run: sysconst version tag',
       });
     }
     

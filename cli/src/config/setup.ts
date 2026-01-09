@@ -73,7 +73,7 @@ export async function ensureApiKey(
   if (!setupNow) {
     console.log();
     console.log(chalk.gray('You can set up your API key later by:'));
-    console.log(chalk.gray(`  1. Running: evospec config --set-key ${targetProvider}`));
+    console.log(chalk.gray(`  1. Running: sysconst config --set-key ${targetProvider}`));
     console.log(chalk.gray(`  2. Setting environment variable: ${getEnvKeyName(targetProvider)}=your-key`));
     console.log();
     return { config, cancelled: true };
@@ -99,7 +99,7 @@ export async function ensureApiKey(
   saveApiKey(targetProvider, apiKey.trim());
   
   console.log();
-  console.log(chalk.green(`✓ API key saved to ~/.evospec/config.yaml`));
+  console.log(chalk.green(`✓ API key saved to ~/.sysconst/config.yaml`));
   console.log();
   
   // Reload config to pick up the new key

@@ -1,6 +1,6 @@
 /**
  * Generate Command
- * Generate a new EvoSpec specification from description
+ * Generate a new System Constitution specification from description
  */
 
 import { Command } from 'commander';
@@ -14,7 +14,7 @@ import type { LLMProviderName } from '../config/schema.js';
 
 export function createGenerateCommand(): Command {
   const cmd = new Command('generate')
-    .description('Generate a new EvoSpec specification from description')
+    .description('Generate a new System Constitution specification from description')
     .argument('<description>', 'Natural language description of the system')
     .option('-o, --output <file>', 'Output file path (default: stdout)')
     .option('-p, --provider <provider>', 'LLM provider: openrouter|openai|anthropic|ollama')

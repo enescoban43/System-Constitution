@@ -1,11 +1,12 @@
-# EvoSpec DSL v1 — Full Monorepo Example
+# System Constitution v1 — Full Monorepo Example
 # Complete example with all features: domain, generation, history, migrations
+# Demonstrates architectural governance for autonomous evolution
 
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
-  id: acme.evoapp
-  name: "ACME EvoApp"
+  id: acme.sysconst
+  name: "ACME System"
   versioning:
     strategy: semver
     current: "1.1.0"
@@ -27,12 +28,13 @@ domain:
       id: system.root
       meta:
         title: "ACME System"
-        description: "Full-featured e-commerce platform"
+        description: "Full-featured e-commerce platform with architectural governance"
       spec:
         goals:
-          - "Spec-guided evolution"
-          - "Any-stack compatible"
-          - "Full audit trail"
+          - "Enforce structural integrity via formal constraints"
+          - "Enable autonomous LLM generation without human-in-the-loop"
+          - "Prevent architectural degradation over time"
+          - "Full audit trail with Git-native versioning"
       children:
         - NodeRef(mod.sales)
         - NodeRef(mod.workflow)
@@ -93,7 +95,7 @@ domain:
           - "cancelled"
 
     # ============================================
-    # ENTITIES
+    # ENTITIES — With architectural contracts
     # ============================================
 
     - kind: Entity
@@ -117,7 +119,12 @@ domain:
             required: false
             description: "Added in v1.1.0"
       contracts:
+        # Invariants — LLMs cannot generate code that violates these
         - invariant: "name != ''"
+          level: hard
+        # API compatibility — Evolution constraints
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
           level: hard
 
     - kind: Entity
@@ -157,6 +164,8 @@ domain:
       contracts:
         - invariant: "totalCents >= 0"
           level: hard
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
 
     - kind: Entity
       id: entity.order_item
@@ -258,7 +267,7 @@ domain:
           occurredAt: datetime
 
     # ============================================
-    # PROCESS & STEPS
+    # PROCESS & STEPS — Temporal contracts
     # ============================================
 
     - kind: Process
@@ -279,10 +288,14 @@ domain:
         - NodeRef(step.pay)
         - NodeRef(step.ship)
       contracts:
+        # TEMPORAL CONTRACTS — Core architectural governance
+        # These cannot be bypassed by LLMs
         - temporal: "G(step.ship -> paid)"
           level: hard
+          description: "Cannot ship without payment"
         - temporal: "G(step.pay -> validated)"
           level: hard
+          description: "Cannot pay without validation"
 
     - kind: Step
       id: step.validate
@@ -320,7 +333,7 @@ domain:
           trackingNumber: string
 
     # ============================================
-    # INTERFACES
+    # INTERFACES — API contracts
     # ============================================
 
     - kind: Interface
@@ -353,7 +366,7 @@ domain:
             - evt.order.cancelled
 
     # ============================================
-    # SCENARIOS
+    # SCENARIOS — Verification
     # ============================================
 
     - kind: Scenario
@@ -424,7 +437,7 @@ domain:
                 status: "cancelled"
 
 # ============================================
-# GENERATION
+# GENERATION — Zone control for autonomous generation
 # ============================================
 
 generation:
@@ -488,7 +501,7 @@ generation:
       - lint
 
 # ============================================
-# HISTORY & MIGRATIONS
+# HISTORY & MIGRATIONS — Git-native versioning
 # ============================================
 
 history:
@@ -496,7 +509,7 @@ history:
     basedOn: null
     changes: []
     migrations: []
-    notes: "Initial spec"
+    notes: "Initial constitution"
 
   - version: "1.1.0"
     basedOn: "1.0.0"

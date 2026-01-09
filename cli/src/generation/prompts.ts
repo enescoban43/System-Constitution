@@ -7,20 +7,20 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // System prompt - embedded for reliability
-const SYSTEM_PROMPT = `# EvoSpec DSL v1 — LLM Generation Guide
+const SYSTEM_PROMPT = `# System Constitution v1 — LLM Generation Guide
 
-You are generating EvoSpec DSL specifications. Follow these rules exactly.
+You are generating System Constitution specifications. Follow these rules exactly.
 
 ## Format
 
 - **File format**: YAML (preferred) or JSON
-- **Root key**: \`spec: evospec/v1\` (REQUIRED)
+- **Root key**: \`spec: sysconst/v1\` (REQUIRED)
 - **ID pattern**: \`^[a-z][a-z0-9_.-]*$\` (lowercase, starts with letter)
 
 ## Core Structure
 
 \`\`\`yaml
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: <stable-id>                    # REQUIRED
@@ -235,7 +235,7 @@ history:
 ## Minimal Valid Spec
 
 \`\`\`yaml
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: my.app
@@ -265,7 +265,7 @@ export function getSystemPrompt(): string {
 }
 
 export function buildGeneratePrompt(description: string): string {
-  return `Generate an EvoSpec DSL v1 specification for the following system:
+  return `Generate an System Constitution v1 specification for the following system:
 
 ## System Description
 
@@ -273,7 +273,7 @@ ${description}
 
 ## Requirements
 
-1. Generate a complete, valid EvoSpec YAML
+1. Generate a complete, valid System Constitution YAML
 2. Include appropriate entities, commands, events based on the description
 3. Add meaningful contracts and invariants where appropriate
 4. Include at least one test scenario
@@ -292,7 +292,7 @@ export function buildEvolvePrompt(
   currentVersion: string,
   newVersion: string
 ): string {
-  return `Evolve the following EvoSpec specification based on the change request.
+  return `Evolve the following System Constitution based on the change request.
 
 ## Current Specification
 

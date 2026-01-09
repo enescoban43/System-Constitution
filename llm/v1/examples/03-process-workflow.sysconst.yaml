@@ -1,7 +1,7 @@
-# EvoSpec DSL v1 — Process Workflow Example
+# System Constitution v1 — Process Workflow Example
 # Demonstrates processes, steps, temporal contracts, and state machines
 
-spec: evospec/v1
+spec: sysconst/v1
 
 project:
   id: workflow.example
@@ -24,12 +24,13 @@ domain:
       id: system.root
       meta:
         title: "E-Commerce Order System"
-        description: "Order processing with workflow"
+        description: "Order processing with workflow and temporal contracts"
       spec:
         goals:
           - "Process orders through fulfillment workflow"
-          - "Ensure payment before shipping"
+          - "Ensure payment before shipping via temporal contracts"
           - "Track order state transitions"
+          - "Prevent architectural degradation"
       children:
         - NodeRef(mod.orders)
         - NodeRef(mod.workflow)
@@ -97,6 +98,8 @@ domain:
       contracts:
         - invariant: "name != ''"
         - invariant: "email != ''"
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
 
     - kind: Entity
       id: entity.order
@@ -137,6 +140,8 @@ domain:
       contracts:
         - invariant: "totalCents >= 0"
           level: hard
+        - type: api-compatibility
+          rule: "minor cannot remove fields"
 
     - kind: Entity
       id: entity.order_item
@@ -224,7 +229,7 @@ domain:
           trackingNumber: string
           occurredAt: datetime
 
-    # Process
+    # Process — Core of architectural governance for workflows
     - kind: Process
       id: proc.order.fulfillment
       meta:
@@ -245,12 +250,14 @@ domain:
         - NodeRef(step.process_payment)
         - NodeRef(step.ship)
       contracts:
-        # Temporal constraint: shipping requires payment
+        # TEMPORAL CONTRACTS — These enforce structural integrity
+        # LLMs cannot generate code that violates these constraints
         - temporal: "G(step.ship -> paid)"
           level: hard
-        # Temporal constraint: payment requires validation
+          description: "Shipping requires payment - cannot be bypassed"
         - temporal: "G(step.process_payment -> validated)"
           level: hard
+          description: "Payment requires validation - cannot be bypassed"
 
     # Steps
     - kind: Step
@@ -342,4 +349,4 @@ history:
     basedOn: null
     changes: []
     migrations: []
-    notes: "Initial workflow spec"
+    notes: "Initial workflow constitution"
