@@ -61,7 +61,7 @@ These issues block code generation and require manual fixes.
 
 ```typescript
 // New checks
-- spec version MUST be "evospec/v1"
+- spec version MUST be "sysconst/v1"
 - Command.spec.output MUST be defined
 - Command.spec.effects.modifies MUST be defined
 - Step.spec.inputs MUST be defined

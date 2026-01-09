@@ -1,6 +1,6 @@
-# EvoSpec Documentation — Deployment Guide
+# SysConst Documentation — Deployment Guide
 
-This guide explains how to deploy the EvoSpec DSL documentation website.
+This guide explains how to deploy the SysConst DSL documentation website.
 
 ---
 
@@ -61,9 +61,9 @@ Edit `website/docusaurus.config.ts`:
 
 ```typescript
 const config: Config = {
-  title: 'EvoSpec DSL',
+  title: 'SysConst DSL',
   tagline: 'Specification-driven software evolution',
-  url: 'https://evospec.dev',
+  url: 'https://sysconst.dev',
   baseUrl: '/',
   
   // Enable versioning
@@ -151,7 +151,7 @@ website/
    - Output Directory: `build`
 
 3. Configure domain:
-   - Add `evospec.dev` in Vercel dashboard
+   - Add `sysconst.dev` in Vercel dashboard
    - Update DNS records
 
 **vercel.json** (optional, in website/):
@@ -182,9 +182,9 @@ website/
 ```typescript
 const config = {
   url: 'https://your-org.github.io',
-  baseUrl: '/EvoSpec-DSL/',
+  baseUrl: '/SysConst-DSL/',
   organizationName: 'your-org',
-  projectName: 'EvoSpec-DSL',
+  projectName: 'SysConst-DSL',
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 };
@@ -258,7 +258,7 @@ jobs:
 
 ### DNS Configuration
 
-For `evospec.dev`:
+For `sysconst.dev`:
 
 | Type | Name | Value |
 |------|------|-------|
@@ -288,12 +288,12 @@ Place in `website/static/schema/`:
 static/
 └── schema/
     └── v1/
-        ├── evospec.schema.json
+        ├── sysconst.schema.json
         └── definitions/
             └── ...
 ```
 
-Accessible at: `https://evospec.dev/schema/v1/evospec.schema.json`
+Accessible at: `https://sysconst.dev/schema/v1/sysconst.schema.json`
 
 ### LLM Prompts
 
@@ -309,7 +309,7 @@ static/
             └── ...
 ```
 
-Accessible at: `https://evospec.dev/llm/v1/SYSTEM_PROMPT.md`
+Accessible at: `https://sysconst.dev/llm/v1/SYSTEM_PROMPT.md`
 
 ---
 
@@ -317,7 +317,7 @@ Accessible at: `https://evospec.dev/llm/v1/SYSTEM_PROMPT.md`
 
 ### Creating a New Version
 
-When releasing EvoSpec DSL v2:
+When releasing SysConst DSL v2:
 
 ```bash
 # 1. Ensure current docs are complete
@@ -356,7 +356,7 @@ themeConfig: {
   algolia: {
     appId: 'YOUR_APP_ID',
     apiKey: 'YOUR_SEARCH_API_KEY',
-    indexName: 'evospec',
+    indexName: 'sysconst',
   },
 },
 ```
@@ -457,6 +457,6 @@ Ensure files are in `website/static/`, not `static/`.
 
 ### Custom Domain Not Working
 
-1. Verify DNS propagation: `dig evospec.dev`
+1. Verify DNS propagation: `dig sysconst.dev`
 2. Check SSL certificate status in platform dashboard
 3. Clear browser cache

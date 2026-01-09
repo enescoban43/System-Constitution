@@ -1,6 +1,6 @@
-# EvoSpec DSL — Versioning Strategy
+# SysConst DSL — Versioning Strategy
 
-This document defines how versions are managed across the EvoSpec DSL ecosystem.
+This document defines how versions are managed across the SysConst DSL ecosystem.
 
 ---
 
@@ -8,8 +8,8 @@ This document defines how versions are managed across the EvoSpec DSL ecosystem.
 
 > **Documentation version MUST match DSL major version.**
 
-When EvoSpec DSL is at v1.x.x, documentation is v1.
-When EvoSpec DSL moves to v2.0.0, documentation becomes v2.
+When SysConst DSL is at v1.x.x, documentation is v1.
+When SysConst DSL moves to v2.0.0, documentation becomes v2.
 
 ---
 
@@ -52,13 +52,13 @@ docs/v2/  → All v2.x.x documentation
 Schema versions mirror DSL versions:
 
 ```
-schema/v1/evospec.schema.json  → For v1.x.x specs
-schema/v2/evospec.schema.json  → For v2.x.x specs
+schema/v1/sysconst.schema.json  → For v1.x.x specs
+schema/v2/sysconst.schema.json  → For v2.x.x specs
 ```
 
 **Schema URL format:**
 ```
-https://evospec.dev/schema/v1/evospec.schema.json
+https://sysconst.dev/schema/v1/sysconst.schema.json
 ```
 
 ### 4. LLM Prompt Version
@@ -86,7 +86,7 @@ llm/v2/SYSTEM_PROMPT.md     → For generating v2.x.x specs
 ## File Structure
 
 ```
-EvoSpec-DSL/
+SysConst-DSL/
 ├── docs/
 │   ├── v1/                    # v1.x.x documentation
 │   │   ├── spec/
@@ -99,9 +99,9 @@ EvoSpec-DSL/
 │
 ├── schema/
 │   ├── v1/
-│   │   └── evospec.schema.json
+│   │   └── sysconst.schema.json
 │   ├── v2/
-│   │   └── evospec.schema.json
+│   │   └── sysconst.schema.json
 │   └── latest -> v1/
 │
 ├── llm/
@@ -119,10 +119,10 @@ EvoSpec-DSL/
 
 ## Spec File Version Declaration
 
-Every EvoSpec file declares its version:
+Every SysConst file declares its version:
 
 ```yaml
-spec: evospec/v1    # Uses v1 specification
+spec: sysconst/v1    # Uses v1 specification
 ```
 
 This allows:
@@ -176,26 +176,26 @@ After v2 release:
 ### Documentation URLs
 
 ```
-https://evospec.dev/docs/           → Redirects to /docs/v1/
-https://evospec.dev/docs/v1/        → v1 documentation
-https://evospec.dev/docs/v1/spec/   → v1 specification
-https://evospec.dev/docs/v2/        → v2 documentation
-https://evospec.dev/docs/next/      → Development docs
+https://sysconst.dev/docs/           → Redirects to /docs/v1/
+https://sysconst.dev/docs/v1/        → v1 documentation
+https://sysconst.dev/docs/v1/spec/   → v1 specification
+https://sysconst.dev/docs/v2/        → v2 documentation
+https://sysconst.dev/docs/next/      → Development docs
 ```
 
 ### Schema URLs
 
 ```
-https://evospec.dev/schema/v1/evospec.schema.json
-https://evospec.dev/schema/v2/evospec.schema.json
-https://evospec.dev/schema/latest/evospec.schema.json  → Redirects to v1
+https://sysconst.dev/schema/v1/sysconst.schema.json
+https://sysconst.dev/schema/v2/sysconst.schema.json
+https://sysconst.dev/schema/latest/sysconst.schema.json  → Redirects to v1
 ```
 
 ### LLM Prompt URLs
 
 ```
-https://evospec.dev/llm/v1/SYSTEM_PROMPT.md
-https://evospec.dev/llm/v1/examples/minimal.evospec.yaml
+https://sysconst.dev/llm/v1/SYSTEM_PROMPT.md
+https://sysconst.dev/llm/v1/examples/minimal.sysconst.yaml
 ```
 
 ---
@@ -222,7 +222,7 @@ v1 end-of-life      ────────────────────
 When v2 is released, v1 docs show banner:
 
 ```
-⚠️ You are viewing documentation for EvoSpec v1.
+⚠️ You are viewing documentation for SysConst v1.
    Version 2 is now available. [Upgrade Guide →]
 ```
 
@@ -235,7 +235,7 @@ When v2 is released, v1 docs show banner:
 Each version folder has its own changelog:
 
 ```markdown
-# EvoSpec DSL v1 Changelog
+# SysConst DSL v1 Changelog
 
 ## [1.2.0] - 2025-03-15
 ### Added
@@ -260,7 +260,7 @@ Each version folder has its own changelog:
 Root `CHANGELOG.md` tracks major versions:
 
 ```markdown
-# EvoSpec DSL Changelog
+# SysConst DSL Changelog
 
 ## v2 (2026-01-01)
 Major rewrite with new features...
@@ -296,7 +296,7 @@ Contents:
 The validator supports multiple DSL versions:
 
 ```typescript
-import { validate } from '@evospec/validator';
+import { validate } from '@sysconst/validator';
 
 // Auto-detect version from spec
 validate(spec);  // Reads spec.spec field
@@ -309,9 +309,9 @@ validate(spec, { version: 'v2' });
 ### Package Versioning
 
 ```
-@evospec/validator@1.x.x  → Supports DSL v1 only
-@evospec/validator@2.x.x  → Supports DSL v1 + v2
-@evospec/validator@3.x.x  → Supports DSL v1 + v2 + v3
+@sysconst/validator@1.x.x  → Supports DSL v1 only
+@sysconst/validator@2.x.x  → Supports DSL v1 + v2
+@sysconst/validator@3.x.x  → Supports DSL v1 + v2 + v3
 ```
 
 ---

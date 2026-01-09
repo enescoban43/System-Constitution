@@ -1,8 +1,8 @@
-# EvoSpec DSL — Implementation Plan
+# SysConst DSL — Implementation Plan
 
 ## Overview
 
-This document outlines the implementation plan for the EvoSpec DSL project, covering:
+This document outlines the implementation plan for the SysConst DSL project, covering:
 1. Human-readable documentation (GitHub + website)
 2. LLM-friendly specification for AI agents
 3. Validation tooling
@@ -14,7 +14,7 @@ This document outlines the implementation plan for the EvoSpec DSL project, cove
 ### 1.1 Repository Structure
 
 ```
-EvoSpec-DSL/
+SysConst-DSL/
 ├── cursor-specs/              # Project planning & specs for Cursor AI
 │   └── IMPLEMENTATION_PLAN.md
 │
@@ -44,8 +44,8 @@ EvoSpec-DSL/
 │
 ├── schema/                    # Machine-readable schemas (versioned)
 │   ├── v1/
-│   │   ├── evospec.schema.json
-│   │   ├── evospec.schema.yaml
+│   │   ├── sysconst.schema.json
+│   │   ├── sysconst.schema.yaml
 │   │   └── node-kinds/
 │   │       ├── entity.schema.json
 │   │       ├── command.schema.json
@@ -57,10 +57,10 @@ EvoSpec-DSL/
 │   │   ├── SYSTEM_PROMPT.md       # Compact prompt (~2-4K tokens)
 │   │   ├── SYSTEM_PROMPT.min.md   # Ultra-compact (~1K tokens)
 │   │   └── examples/
-│   │       ├── 01-minimal.evospec.yaml
-│   │       ├── 02-entity-crud.evospec.yaml
-│   │       ├── 03-process-workflow.evospec.yaml
-│   │       └── 04-full-monorepo.evospec.yaml
+│   │       ├── 01-minimal.sysconst.yaml
+│   │       ├── 02-entity-crud.sysconst.yaml
+│   │       ├── 03-process-workflow.sysconst.yaml
+│   │       └── 04-full-monorepo.sysconst.yaml
 │   └── latest -> v1/
 │
 ├── validator/                 # Validation library
@@ -86,9 +86,9 @@ EvoSpec-DSL/
 │   └── src/
 │
 ├── packages/                  # Published npm packages
-│   ├── @evospec/schema/
-│   ├── @evospec/validator/
-│   └── @evospec/cli/
+│   ├── @sysconst/schema/
+│   ├── @sysconst/validator/
+│   └── @sysconst/cli/
 │
 ├── CHANGELOG.md
 ├── LICENSE
@@ -162,7 +162,7 @@ v1/
 ### 3.2 System Prompt Structure
 
 ```markdown
-# EvoSpec DSL v1 — Generation Guide
+# SysConst DSL v1 — Generation Guide
 
 ## Quick Reference
 [Core structure, required fields, ID patterns]
@@ -196,7 +196,7 @@ Examples ordered by complexity:
 
 ```
 schema/v1/
-├── evospec.schema.json        # Root schema (references others)
+├── sysconst.schema.json        # Root schema (references others)
 ├── definitions/
 │   ├── node.schema.json       # Base Node definition
 │   ├── project.schema.json
@@ -217,8 +217,8 @@ schema/v1/
 
 - JSON Schema Draft 2020-12
 - `$ref` for modularity
-- Custom `x-evospec-*` extensions for tooling hints
-- Published to: `https://evospec.dev/schema/v1/evospec.schema.json`
+- Custom `x-sysconst-*` extensions for tooling hints
+- Published to: `https://sysconst.dev/schema/v1/sysconst.schema.json`
 
 ---
 
@@ -238,16 +238,16 @@ schema/v1/
 ### 5.2 Package Structure
 
 ```
-@evospec/validator
+@sysconst/validator
 ├── validate(spec) → ValidationResult
 ├── validatePhase(spec, phase) → PhaseResult
 ├── loadSchema(version) → JSONSchema
 └── errors → ErrorCode enum
 
-@evospec/cli
-├── evospec validate <file>
-├── evospec check <file> --phase=1-3
-└── evospec init
+@sysconst/cli
+├── sysconst validate <file>
+├── sysconst check <file> --phase=1-3
+└── sysconst init
 ```
 
 ### 5.3 Error Format
@@ -294,7 +294,7 @@ interface ValidationError {
 ### 6.3 URL Structure
 
 ```
-https://evospec.dev/
+https://sysconst.dev/
 ├── /                          # Landing page
 ├── /docs/                     # Latest docs (redirect to /docs/v1/)
 ├── /docs/v1/                  # v1 documentation
@@ -330,7 +330,7 @@ https://evospec.dev/
 
 ## Success Criteria
 
-1. **Human-readable**: Developers can understand EvoSpec in <30 minutes
+1. **Human-readable**: Developers can understand SysConst in <30 minutes
 2. **LLM-friendly**: GPT-4/Claude generates valid specs on first try >80%
 3. **Validatable**: All specs can be validated in <100ms
 4. **Versioned**: Old versions remain accessible, migration paths documented
@@ -339,7 +339,7 @@ https://evospec.dev/
 
 ## Open Questions
 
-1. **Domain**: `evospec.dev` or `evospec.io`?
+1. **Domain**: `sysconst.dev` or `sysconst.io`?
 2. **License**: MIT or Apache 2.0?
 3. **Translations**: Russian docs in same repo or separate?
 4. **Playground**: Build custom or use existing JSON Schema playground?
