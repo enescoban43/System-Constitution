@@ -1,11 +1,82 @@
 # @redush/sysconst
 
-**System Constitution — Architectural governance for autonomous software evolution**
+**Define your architecture once. Let LLMs evolve it safely.**
 
 [![npm version](https://img.shields.io/npm/v/@redush/sysconst.svg)](https://www.npmjs.com/package/@redush/sysconst)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/redush-com/System-Constitution/blob/main/LICENSE)
 
-System Constitution is an **architectural governance layer** that enforces structural integrity and controls permissible evolution of software systems. Designed for autonomous LLM generation without human-in-the-loop — stability through formal constraints, not process discipline.
+System Constitution designed for autonomous AI coding agents. Prevents architectural degradation as your project grows — it's a YAML-based architecture definition with built-in contracts that preserves system stability over time. When agents modify your system, the validator ensures every change respects your architectural rules.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           HOW IT WORKS                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║  1. INIT — Bootstrap architecture from user prompt                    ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│       User                         LLM                      Constitution    │
+│    ┌─────────┐               ┌─────────────┐             ┌──────────────┐   │
+│    │ "Build  │               │  Generates  │             │ myapp.       │   │
+│    │ e-comm  │──────────────▶│  initial    │────────────▶│ sysconst.    │   │
+│    │ system" │               │  structure  │             │ yaml         │   │
+│    └─────────┘               └─────────────┘             └──────┬───────┘   │
+│                                                                 │           │
+│  ═══════════════════════════════════════════════════════════════╪═══════   │
+│                                                                 ▼           │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║  2. EVOLVE — Continuous development with guardrails                   ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│    Constitution              LLM Evolution                 Your Code        │
+│  ┌──────────────────┐    ┌──────────────────┐    ┌───────────────────────┐  │
+│  │ entities:        │    │  "Add payment"   │    │  src/                 │  │
+│  │   - User         │───▶│                  │───▶│    entities/          │  │
+│  │   - Order        │    │  Modifies YAML:  │    │    commands/          │  │
+│  │                  │    │  + PaymentModule │    │    events/            │  │
+│  │ contracts:       │    │  + PaymentEntity │    │                       │  │
+│  │   - "no cycles"  │    └────────┬─────────┘    │  (generated from YAML)│  │
+│  │   - "refs valid" │             │              └───────────────────────┘  │
+│  └────────▲─────────┘             ▼                                         │
+│           │              ┌──────────────────┐                               │
+│           │              │    VALIDATOR     │                               │
+│           │              │                  │                               │
+│           │              │  ✓ Schema OK     │                               │
+│           │              │  ✓ Refs resolve  │                               │
+│           │              │  ✓ Contracts OK  │                               │
+│           │              │  ✓ Evolution OK  │                               │
+│           │              │                  │                               │
+│           │              │  ✗ Violation?    │                               │
+│           │              │    → REJECTED    │                               │
+│           │              └────────┬─────────┘                               │
+│           │                       │                                         │
+│           └───────────────────────┘                                         │
+│                  Only valid changes saved                                   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+## The Problem
+
+When LLMs evolve your codebase autonomously, they don't understand your architectural decisions:
+- Why modules are separated
+- Which dependencies are forbidden  
+- What invariants must hold
+- How schemas can evolve
+
+**Result**: Gradual architectural erosion. Each change seems fine, but over time the system degrades.
+
+## The Solution
+
+Put your architecture in a **machine-readable file** with explicit contracts. LLMs read and modify this file. The validator blocks any change that violates your rules.
+
+| Without Constitution | With Constitution |
+|---------------------|-------------------|
+| Architecture lives in developers' heads | Architecture is explicit YAML |
+| LLM guesses what's allowed | LLM sees exact constraints |
+| Bad changes slip through | Validator blocks violations |
+| Manual review required | Autonomous evolution possible |
 
 ## Installation
 
@@ -22,22 +93,21 @@ npm install @redush/sysconst
 ### CLI Usage
 
 ```bash
-# Create a new constitution with LLM generation
+# Create constitution with LLM generation
 sysconst init myshop -d "E-commerce platform with products and orders"
 
-# Create without LLM (minimal template)
+# Create minimal template (no LLM)
 sysconst init myapp --no-generate
 
-# Validate a constitution
+# Validate
 sysconst validate myapp.sysconst.yaml
 ```
 
 ### Programmatic Usage
 
 ```typescript
-import { validate, validateYaml, parseSpec } from '@redush/sysconst';
+import { validateYaml } from '@redush/sysconst';
 
-// Validate YAML string
 const result = validateYaml(`
 spec: sysconst/v1
 project:
@@ -72,89 +142,63 @@ Options:
   --no-generate              Skip LLM, create minimal template
   --provider <name>          LLM provider (openrouter|openai|anthropic|ollama)
   --model <name>             Specific model to use
-  -o, --output <path>        Output directory
 ```
 
 ### `validate` — Validate Constitution
 
 ```bash
-sysconst validate <file>
-
-# Examples
 sysconst validate myapp.sysconst.yaml
-sysconst validate ./specs/*.sysconst.yaml
+```
+
+### `evolve` — Evolve with LLM
+
+```bash
+sysconst evolve myapp.sysconst.yaml -c "Add payment processing"
 ```
 
 ### `generate` — Generate from Description
 
 ```bash
-sysconst generate <description> [options]
-
-Options:
-  -o, --output <file>        Output file path
-  --provider <name>          LLM provider
-  --model <name>             Specific model
-
-# Example
-sysconst generate "Task management with projects and tasks" -o tasks.sysconst.yaml
+sysconst generate "Task management system" -o tasks.sysconst.yaml
 ```
 
-### `evolve` — Evolve Existing Constitution
+### Version Management
 
 ```bash
-sysconst evolve <file> [options]
-
-Options:
-  -c, --change <description>  Change description
-  --provider <name>           LLM provider
-
-# Example
-sysconst evolve myapp.sysconst.yaml -c "Add user authentication"
-```
-
-### `version` — Version Management
-
-```bash
-# Bump version
 sysconst version bump <major|minor|patch> -f <file>
-
-# Tag current version in Git
 sysconst version tag -f <file>
-```
-
-### `history` — View Version History
-
-```bash
 sysconst history -f <file>
+sysconst diff v1.0.0 v1.1.0 -f <file>
+sysconst checkout v1.0.0
 ```
 
-### `diff` — Compare Versions
+## Validation Phases
 
-```bash
-sysconst diff <version1> <version2> -f <file>
-```
-
-### `checkout` — Restore Version
-
-```bash
-sysconst checkout <version>
-```
+| Phase | Description |
+|-------|-------------|
+| **1. Structural** | Syntax, required fields, JSON Schema |
+| **2. Referential** | NodeRef resolution, unique IDs |
+| **3. Semantic** | Kind-specific rules |
+| **4. Evolution** | Version history, migrations |
+| **5. Generation** | Zone safety, hooks |
+| **6. Verifiability** | Scenarios, pipelines |
 
 ## Validation API
 
-### `validateYaml(yaml: string, options?): ValidationResult`
+```typescript
+import { validateYaml, validate, parseSpec } from '@redush/sysconst';
 
-Validates a YAML string containing a System Constitution.
+// Validate YAML string
+const result = validateYaml(yamlString);
 
-### `validate(spec: unknown, options?): ValidationResult`
+// Validate parsed object
+const result = validate(specObject);
 
-Validates a parsed spec object.
+// Parse YAML to object
+const spec = parseSpec(yamlString);
+```
 
-### `parseSpec(yaml: string): unknown`
-
-Parses YAML string to spec object.
-
-### `ValidationResult`
+### ValidationResult
 
 ```typescript
 interface ValidationResult {
@@ -163,48 +207,38 @@ interface ValidationResult {
   warnings: ValidationError[];
   phase: ValidationPhase;
 }
-
-interface ValidationError {
-  code: string;
-  message: string;
-  phase: ValidationPhase;
-  level: 'hard' | 'soft';
-  location?: string;
-  suggestion?: string;
-}
 ```
 
-## Validation Phases
+## Node Kinds
 
-| Phase | Description |
-|-------|-------------|
-| **1. Structural** | Syntax, required fields, JSON Schema compliance |
-| **2. Referential** | NodeRef resolution, unique IDs, no dangling references |
-| **3. Semantic** | Kind-specific rules (Entity fields, Command params, etc.) |
-| **4. Evolution** | Version history, migration compatibility |
-| **5. Generation** | Zone safety, hook anchor validation |
-| **6. Verifiability** | Scenario coverage, pipeline definitions |
+| Kind | Purpose |
+|------|---------|
+| `System` | Root container |
+| `Module` | Logical grouping with boundaries |
+| `Entity` | Persistent data with invariants |
+| `Command` | Write operation with preconditions |
+| `Event` | State change notification |
+| `Process` | Multi-step workflow |
+| `Scenario` | Verification case |
 
 ## LLM Providers
 
-| Provider | Default Model | Notes |
-|----------|---------------|-------|
-| **OpenRouter** (default) | `anthropic/claude-sonnet-4.5` | Access to 100+ models |
-| OpenAI | `gpt-5.2` | Direct OpenAI API |
-| Anthropic | `claude-sonnet-4-5` | Direct Anthropic API |
-| Ollama | `llama4` | Free, runs locally |
+| Provider | Default Model |
+|----------|---------------|
+| **OpenRouter** (default) | `anthropic/claude-sonnet-4.5` |
+| OpenAI | `gpt-5.2` |
+| Anthropic | `claude-sonnet-4-5` |
+| Ollama | `llama4` (free, local) |
 
 ### API Key Configuration
 
-On first use, the CLI prompts for API key and saves it to `~/.sysconst/config.yaml`.
+On first use, CLI prompts for API key → saved to `~/.sysconst/config.yaml`.
 
-**For CI/CD**, use environment variables:
+**For CI/CD:**
 
 ```bash
 export OPENROUTER_API_KEY=sk-or-v1-...
-# or
 export OPENAI_API_KEY=sk-...
-# or
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
@@ -219,17 +253,8 @@ project:
     strategy: semver
     current: "1.0.0"
 
-structure:
-  root: NodeRef(system.root)
-
 domain:
   nodes:
-    - kind: System
-      id: system.root
-      spec:
-        goals:
-          - "My application"
-
     - kind: Entity
       id: entity.user
       spec:
@@ -238,14 +263,21 @@ domain:
           email: { type: string, required: true }
       contracts:
         - invariant: "email != ''"
+
+    - kind: Entity  
+      id: entity.order
+      spec:
+        fields:
+          userId: { type: ref(entity.user), required: true }
+      contracts:
+        - invariant: "userId != null"
 ```
 
 ## Links
 
-- [Documentation](https://redush.com)
 - [GitHub](https://github.com/redush-com/System-Constitution)
-- [Quick Start Guide](https://github.com/redush-com/System-Constitution/blob/main/docs/v1/guides/quick-start.md)
-- [Full Specification](https://github.com/redush-com/System-Constitution/blob/main/docs/v1/spec/01-introduction.md)
+- [Documentation](https://github.com/redush-com/System-Constitution/blob/main/docs/v1/spec/01-introduction.md)
+- [Quick Start](https://github.com/redush-com/System-Constitution/blob/main/docs/v1/guides/quick-start.md)
 
 ## License
 
