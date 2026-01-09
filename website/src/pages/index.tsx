@@ -206,7 +206,7 @@ function HomepageCTA(): JSX.Element {
           Install the CLI and create your first constitution in minutes.
         </p>
         <pre className={styles.installCommand}>
-          npm install -g @sysconst/cli
+          npm install -g @redush/sysconst
         </pre>
         <div className={styles.buttons}>
           <Link

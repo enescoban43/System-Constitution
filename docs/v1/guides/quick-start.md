@@ -12,10 +12,10 @@ Get started with System Constitution in 5 minutes.
 
 ```bash
 # Install the CLI globally
-npm install -g @sysconst/cli
+npm install -g @redush/sysconst
 
 # Or use npx
-npx @sysconst/cli validate myconstitution.yaml
+npx @redush/sysconst validate myconstitution.yaml
 ```
 
 ## Your First Constitution

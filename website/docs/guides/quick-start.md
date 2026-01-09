@@ -10,7 +10,7 @@ Get started with System Constitution in 5 minutes.
 ## Installation
 
 ```bash
-npm install -g @sysconst/cli
+npm install -g @redush/sysconst
 ```
 
 ## Your First Constitution

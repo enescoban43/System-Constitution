@@ -3,7 +3,7 @@
 **Architectural governance layer for autonomous software evolution**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![npm version](https://img.shields.io/npm/v/@sysconst/validator.svg)](https://www.npmjs.com/package/@sysconst/validator)
+[![npm version](https://img.shields.io/npm/v/@redush/sysconst-validator.svg)](https://www.npmjs.com/package/@redush/sysconst-validator)
 
 System Constitution is an **architectural governance layer** that enforces structural integrity and controls permissible evolution of software systems over time. Unlike specification-driven approaches that rely on process discipline and human oversight, System Constitution embeds **formal constraints** directly into the system definition—LLMs simply cannot introduce changes that violate architectural contracts.
 
@@ -45,7 +45,7 @@ The system uses **Git** for version control of constitution files, providing ful
 ### Installation
 
 ```bash
-npm install -g @sysconst/cli
+npm install -g @redush/sysconst
 ```
 
 ### Create Your First Constitution
@@ -131,9 +131,9 @@ System-Constitution/
 
 | Package | Description |
 |---------|-------------|
-| `@sysconst/validator` | Validation library |
-| `@sysconst/cli` | Command-line interface |
-| `@sysconst/schema` | JSON Schema |
+| `@redush/sysconst-validator` | Validation library |
+| `@redush/sysconst` | Command-line interface |
+| `@redush/sysconst-schema` | JSON Schema |
 
 ## Core Concepts
 
@@ -251,4 +251,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 - [Documentation](https://redush.com)
 - [GitHub](https://github.com/nicholasoxford/system-constitution)
-- [npm](https://www.npmjs.com/package/@sysconst/validator)
+- [npm](https://www.npmjs.com/package/@redush/sysconst-validator)

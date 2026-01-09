@@ -1,5 +1,5 @@
 {
-  "name": "@sysconst/validator",
+  "name": "@redush/sysconst-validator",
   "version": "1.0.0",
   "description": "Validator for System Constitution - Enforces architectural governance and structural integrity",
   "main": "dist/index.js",

@@ -27,7 +27,7 @@ for (const envPath of envPaths) {
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { validateYaml, ValidationResult, ValidationError, ValidationPhase } from '@sysconst/validator';
+import { validateYaml, ValidationResult, ValidationError, ValidationPhase } from '@redush/sysconst-validator';
 
 // Import new commands
 import {

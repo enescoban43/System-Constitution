@@ -13,7 +13,7 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.33.1
         version: 0.33.1
-      '@sysconst/validator':
+      '@redush/sysconst-validator':
         specifier: workspace:*
         version: link:../validator
       chalk:
