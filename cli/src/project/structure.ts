@@ -13,7 +13,7 @@ import {
 
 export interface ProjectStructure {
   projectDir: string;
-  evospecDir: string;
+  sysconstDir: string;
   cacheDir: string;
   configFile: string;
   specFile: string;
@@ -46,7 +46,7 @@ export function getProjectStructure(targetDir: string, projectName: string): Pro
   
   return {
     projectDir: targetDir,
-    evospecDir: join(targetDir, '.sysconst'),
+    sysconstDir: join(targetDir, '.sysconst'),
     cacheDir: join(targetDir, '.sysconst', 'cache'),
     configFile: join(targetDir, '.sysconst', 'config.yaml'),
     specFile: join(targetDir, specFileName),
@@ -72,11 +72,11 @@ export function isDirectoryEmpty(dir: string): boolean {
  */
 export function projectExists(targetDir: string): {
   exists: boolean;
-  reason?: 'evospec_dir' | 'spec_file';
+  reason?: 'sysconst_dir' | 'spec_file';
 } {
-  const evospecDir = join(targetDir, '.sysconst');
-  if (existsSync(evospecDir)) {
-    return { exists: true, reason: 'evospec_dir' };
+  const sysconstDir = join(targetDir, '.sysconst');
+  if (existsSync(sysconstDir)) {
+    return { exists: true, reason: 'sysconst_dir' };
   }
   
   // Check for any .sysconst.yaml file

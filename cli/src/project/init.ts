@@ -58,7 +58,7 @@ export async function initProject(options: InitOptions): Promise<InitResult> {
   // Check if project already exists
   const existing = projectExists(targetDir);
   if (existing.exists) {
-    const reason = existing.reason === 'evospec_dir'
+    const reason = existing.reason === 'sysconst_dir'
       ? 'Project already initialized (.sysconst/ exists)'
       : 'Spec file already exists';
     return {
